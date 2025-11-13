@@ -1,0 +1,487 @@
+/* Restaurant POS Theme CSS - Colorful menu-based layout */
+
+/* Animation keyframes */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes itemAdded {
+    0% {
+        transform: scale(1);
+        background: #4CAF50;
+    }
+    50% {
+        transform: scale(1.1);
+        background: #66BB6A;
+    }
+    100% {
+        transform: scale(1);
+        background: #4CAF50;
+    }
+}
+
+/* Restaurant Layout Styles */
+.pos-layout.restaurant-theme {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #2c2c2c;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    color: white;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Header */
+.restaurant-theme .pos-header {
+    background: #1e1e1e;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #333;
+}
+
+.restaurant-theme .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.restaurant-theme .date-display {
+    background: #4a4a4a;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.restaurant-theme .current-item {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.restaurant-theme .item-price {
+    font-size: 36px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.restaurant-theme .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.restaurant-theme .register-info {
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Main Layout */
+.restaurant-theme .pos-main {
+    flex: 1;
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+}
+
+/* Left Panel - Menu Categories */
+.restaurant-theme .menu-panel {
+    width: 160px;
+    background: #333;
+    display: flex;
+    flex-direction: column;
+}
+
+.restaurant-theme .category-section {
+    margin-bottom: 2px;
+}
+
+.restaurant-theme .category-header {
+    background: #4a4a4a;
+    color: white;
+    padding: 12px 8px;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    border-bottom: 1px solid #555;
+}
+
+.restaurant-theme .category-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.restaurant-theme .category-item {
+    background: #666;
+    color: white;
+    border: 1px solid #555;
+    padding: 8px 6px;
+    font-size: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.restaurant-theme .category-item:hover {
+    background: #777;
+}
+
+/* Center Panel - Menu Grid */
+.restaurant-theme .menu-grid-panel {
+    flex: 1;
+    background: #2c2c2c;
+    padding: 4px;
+}
+
+.restaurant-theme .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    height: 100%;
+}
+
+.restaurant-theme .menu-item {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 4px;
+}
+
+.restaurant-theme .menu-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.restaurant-theme .menu-item.drinks { background: #4CAF50; }
+.restaurant-theme .menu-item.starters { background: #4CAF50; }
+.restaurant-theme .menu-item.mains { background: #FFA726; }
+.restaurant-theme .menu-item.desserts { background: #FFA726; }
+.restaurant-theme .menu-item.specials { background: #E0E0E0; color: #333; }
+.restaurant-theme .menu-item.alcohol { background: #E91E63; }
+.restaurant-theme .menu-item.useful { background: #FF7043; }
+.restaurant-theme .menu-item.half-pint { background: #5C6BC0; }
+.restaurant-theme .menu-item.double { background: #42A5F5; }
+
+/* Right Panel - Order & Payment */
+.restaurant-theme .order-payment-panel {
+    width: 280px;
+    background: #1e1e1e;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Order Display */
+.restaurant-theme .order-display {
+    flex: 1;
+    padding: 12px;
+    border-bottom: 2px solid #333;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.restaurant-theme .order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 12px;
+    border-bottom: 1px solid #333;
+}
+
+.restaurant-theme .item-quantity {
+    color: #ccc;
+    min-width: 20px;
+}
+
+.restaurant-theme .item-name {
+    flex: 1;
+    color: white;
+}
+
+.restaurant-theme .item-price {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+/* Total Display */
+.restaurant-theme .total-display {
+    background: #333;
+    padding: 16px 12px;
+    text-align: right;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 2px solid #444;
+}
+
+.restaurant-theme .total-label {
+    color: #ccc;
+}
+
+.restaurant-theme .total-amount {
+    color: #4CAF50;
+    font-size: 24px;
+}
+
+/* Numeric Keypad */
+.restaurant-theme .keypad-section {
+    padding: 12px;
+    background: #2c2c2c;
+}
+
+.restaurant-theme .keypad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.restaurant-theme .keypad-btn {
+    background: #555;
+    color: white;
+    border: none;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.restaurant-theme .keypad-btn:hover {
+    background: #666;
+}
+
+.restaurant-theme .keypad-btn:active {
+    background: #777;
+}
+
+/* Function Buttons */
+.restaurant-theme .function-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.restaurant-theme .function-btn {
+    background: #FF5722;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.restaurant-theme .function-btn:hover {
+    background: #FF6D42;
+}
+
+.restaurant-theme .function-btn.error-correct { background: #FF5722; }
+.restaurant-theme .function-btn.cancel { background: #FF5722; }
+.restaurant-theme .function-btn.plu { background: #FF5722; }
+.restaurant-theme .function-btn.no-sale { background: #FF5722; }
+
+/* Special Buttons */
+.restaurant-theme .special-buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.restaurant-theme .special-btn {
+    flex: 1;
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 16px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.restaurant-theme .special-btn:hover {
+    background: #42A5F5;
+}
+
+.restaurant-theme .special-btn.new-balance { background: #2196F3; }
+.restaurant-theme .special-btn.subtotal { background: #2196F3; }
+.restaurant-theme .special-btn.account { background: #2196F3; }
+
+/* Payment Buttons */
+.restaurant-theme .payment-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.restaurant-theme .payment-btn {
+    flex: 1;
+    border: none;
+    padding: 20px 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.restaurant-theme .payment-btn.credit-card {
+    background: #2196F3;
+    color: white;
+}
+
+.restaurant-theme .payment-btn.cash {
+    background: #4CAF50;
+    color: white;
+    font-size: 18px;
+}
+
+.restaurant-theme .payment-btn.cheque {
+    background: #2196F3;
+    color: white;
+    font-size: 10px;
+}
+
+.restaurant-theme .payment-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Footer */
+.restaurant-theme .pos-footer {
+    background: #1e1e1e;
+    padding: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #333;
+    font-size: 12px;
+}
+
+.restaurant-theme .device-selector {
+    display: flex;
+    gap: 16px;
+}
+
+.restaurant-theme .device-btn {
+    background: #4a4a4a;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.restaurant-theme .device-btn.active {
+    background: #2196F3;
+}
+
+.restaurant-theme .time-display {
+    color: #ccc;
+}
+
+/* Theme Switcher */
+.theme-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: rgba(0,0,0,0.8);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    gap: 8px;
+}
+
+.theme-btn {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s;
+}
+
+.theme-btn:hover {
+    background: #555;
+}
+
+.theme-btn.active {
+    background: #2196F3;
+}
+
+/* Responsive adjustments for restaurant theme */
+@media (max-width: 1024px) {
+    .restaurant-theme .menu-panel {
+        width: 140px;
+    }
+    
+    .restaurant-theme .order-payment-panel {
+        width: 240px;
+    }
+    
+    .restaurant-theme .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .restaurant-theme .pos-main {
+        flex-direction: column;
+    }
+    
+    .restaurant-theme .menu-panel {
+        width: 100%;
+        height: 60px;
+        flex-direction: row;
+        overflow-x: auto;
+    }
+    
+    .restaurant-theme .category-section {
+        margin-bottom: 0;
+        margin-right: 2px;
+        min-width: 100px;
+    }
+    
+    .restaurant-theme .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .restaurant-theme .order-payment-panel {
+        width: 100%;
+        flex-direction: row;
+    }
+    
+    .restaurant-theme .order-display {
+        flex: 1;
+        max-height: none;
+    }
+}

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="POS system for touch terminals">
+    <meta name="theme-color" content="#3498db">
+    <title>POS System - Touch Terminal</title>
+    
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="styles/pos-theme.css" as="style">
+    <link rel="preload" href="styles/touch-components.css" as="style">
+    <link rel="preload" href="styles/grid-layouts.css" as="style">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles/pos-theme.css">
+    <link rel="stylesheet" href="styles/restaurant-theme.css">
+    <link rel="stylesheet" href="styles/express-theme-new.css">
+    <link rel="stylesheet" href="styles/touch-components.css">
+    <link rel="stylesheet" href="styles/grid-layouts.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/no-image.svg">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- iOS PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="POS System">
+    <link rel="apple-touch-icon" href="assets/icons/no-image.svg">
+    
+    <!-- Optimize for touch devices -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    
+    <!-- Preload JavaScript modules -->
+    <link rel="modulepreload" href="core/app-manager.js">
+    <link rel="modulepreload" href="core/screen-router.js">
+    <link rel="modulepreload" href="core/cart-manager.js">
+    <link rel="modulepreload" href="core/storage-manager.js">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Starting POS system...</div>
+    </div>
+    
+    <!-- Main Application Container -->
+    <div id="pos-app" class="pos-container" style="display: none;">
+        <!-- Content will be dynamically loaded here -->
+    </div>
+    
+    <!-- Error Fallback -->
+    <div id="error-screen" class="error-screen" style="display: none;">
+        <div class="error-icon">⚠️</div>
+        <div class="error-message">Application loading error</div>
+        <button class="touch-button touch-btn-primary error-retry" onclick="location.reload()">
+            Reload
+        </button>
+    </div>
+    
+    <!-- Scripts - Load in order -->
+    <script src="core/storage-manager.js"></script>
+    <script src="core/cart-manager.js"></script>
+    <script src="core/screen-router.js"></script>
+    <script src="core/app-manager.js"></script>
+    
+    <!-- UI Components -->
+    <script src="components/touch-button/touch-button.js"></script>
+    <script src="components/product-tile/product-tile.js"></script>
+    <script src="components/smart-grid/smart-grid.js"></script>
+    <script src="components/numpad/numpad.js"></script>
+    <script src="components/cart-item/cart-item.js"></script>
+    <script src="components/receipt-view/receipt-view.js"></script>
+    
+    <!-- Application Bootstrap -->
+    <script>
+        // Application initialization
+        let posApp;
+        
+        // Initialize the POS application
+        async function initializePOSApp() {
+            try {
+                console.log('Starting POS Application...');
+                
+                // Create and initialize the app
+                posApp = new POSApp();
+                await posApp.init();
+                
+                // Hide loading screen and show app
+                document.getElementById('loading-screen').style.display = 'none';
+                document.getElementById('pos-app').style.display = 'flex';
+                
+                console.log('POS Application started successfully');
+                
+            } catch (error) {
+                console.error('Failed to initialize POS Application:', error);
+                showErrorScreen();
+            }
+        }
+        
+        // Show error screen
+        function showErrorScreen() {
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('pos-app').style.display = 'none';
+            document.getElementById('error-screen').style.display = 'flex';
+        }
+        
+        // Global error handling
+        window.addEventListener('error', (event) => {
+            console.error('Global error caught:', event.error);
+        });
+        
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Unhandled promise rejection:', event.reason);
+        });
+        
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializePOSApp);
+        } else {
+            initializePOSApp();
+        }
+        
+        // Service Worker registration (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+        
+        // Prevent zoom on double tap (iOS)
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+        
+        // Prevent context menu on long press
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        
+        // Disable text selection on touch devices
+        document.addEventListener('selectstart', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+        
+        // Handle orientation change
+        window.addEventListener('orientationchange', function() {
+            setTimeout(() => {
+                // Force a repaint to handle orientation change
+                document.body.style.display = 'none';
+                document.body.offsetHeight; // trigger reflow
+                document.body.style.display = '';
+            }, 100);
+        });
+        
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                console.log('Page load time:', perfData.loadEventEnd - perfData.fetchStart, 'ms');
+            }, 0);
+        });
+    </script>
+</body>
+</html>
