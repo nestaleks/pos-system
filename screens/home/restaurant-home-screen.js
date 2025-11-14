@@ -29,6 +29,7 @@ class RestaurantHomeScreen {
                     <button class="theme-btn" data-theme="evolution">Evolution</button>
                     <button class="theme-btn active" data-theme="restaurant">Restaurant</button>
                     <button class="theme-btn" data-theme="express">Express</button>
+                    <button class="theme-btn" data-theme="oblivion">Oblivion</button>
                 </div>
 
                 <!-- Header -->
@@ -307,6 +308,9 @@ class RestaurantHomeScreen {
         } else if (theme === 'express') {
             // Switch to Express theme
             this.app.loadExpressTheme();
+        } else if (theme === 'oblivion') {
+            // Switch to Oblivion theme
+            this.app.loadOblivionTheme();
         } else if (theme === 'restaurant') {
             posLayout.className = 'pos-layout restaurant-theme';
         }

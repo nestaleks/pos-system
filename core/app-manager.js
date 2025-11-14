@@ -137,4 +137,30 @@ class POSApp {
             console.error('Failed to load evolution theme:', error);
         }
     }
+
+
+    async loadOblivionTheme() {
+        try {
+            console.log('Loading oblivion theme...');
+            
+            // Dynamically import oblivion screen
+            const { default: OblivionHomeScreen } = await import('../screens/home/oblivion-home-screen.js');
+            
+            // Create and render oblivion screen
+            const oblivionScreen = new OblivionHomeScreen(this);
+            const screenHTML = await oblivionScreen.render();
+            
+            // Replace content
+            const appContainer = document.getElementById('pos-app');
+            appContainer.innerHTML = screenHTML;
+            
+            // Initialize oblivion screen
+            await oblivionScreen.afterRender();
+            
+            console.log('Oblivion theme loaded successfully');
+            
+        } catch (error) {
+            console.error('Failed to load oblivion theme:', error);
+        }
+    }
 }

@@ -29,6 +29,7 @@ class ExpressHomeScreen {
                     <button class="theme-btn" data-theme="evolution">EVOLUTION</button>
                     <button class="theme-btn" data-theme="restaurant">RESTAURANT</button>
                     <button class="theme-btn active" data-theme="express">EXPRESS</button>
+                    <button class="theme-btn" data-theme="oblivion">OBLIVION</button>
                 </div>
 
                 <!-- Terminal Header -->
@@ -327,6 +328,8 @@ class ExpressHomeScreen {
             this.app.loadEvolutionTheme();
         } else if (theme === 'restaurant') {
             this.app.loadRestaurantTheme();
+        } else if (theme === 'oblivion') {
+            this.app.loadOblivionTheme();
         }
         // Keep current express theme if theme === 'express'
     }
