@@ -28,7 +28,6 @@ class RestaurantHomeScreen {
                 <div class="theme-switcher">
                     <button class="theme-btn" data-theme="evolution">Evolution</button>
                     <button class="theme-btn active" data-theme="restaurant">Restaurant</button>
-                    <button class="theme-btn" data-theme="express">Express</button>
                     <button class="theme-btn" data-theme="oblivion">Oblivion</button>
                 </div>
 
@@ -305,9 +304,6 @@ class RestaurantHomeScreen {
         if (theme === 'evolution') {
             // Switch back to Evolution theme
             this.app.loadEvolutionTheme();
-        } else if (theme === 'express') {
-            // Switch to Express theme
-            this.app.loadExpressTheme();
         } else if (theme === 'oblivion') {
             // Switch to Oblivion theme
             this.app.loadOblivionTheme();

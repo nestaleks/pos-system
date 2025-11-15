@@ -25,7 +25,6 @@ class HomeScreen {
                 <div class="theme-switcher">
                     <button class="theme-btn active" data-theme="evolution">Evolution</button>
                     <button class="theme-btn" data-theme="restaurant">Restaurant</button>
-                    <button class="theme-btn" data-theme="express">Express</button>
                     <button class="theme-btn" data-theme="oblivion">Oblivion</button>
                 </div>
 
@@ -463,9 +462,6 @@ Use touch interface for operation.`;
         if (theme === 'restaurant') {
             // Switch to restaurant theme
             this.app.loadRestaurantTheme();
-        } else if (theme === 'express') {
-            // Switch to express theme
-            this.app.loadExpressTheme();
         } else if (theme === 'oblivion') {
             // Switch to oblivion theme
             this.app.loadOblivionTheme();

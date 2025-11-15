@@ -99,30 +99,6 @@ class POSApp {
         }
     }
 
-    async loadExpressTheme() {
-        try {
-            console.log('Loading express theme...');
-            
-            // Dynamically import express screen
-            const { default: ExpressHomeScreen } = await import('../screens/home/express-home-screen.js');
-            
-            // Create and render express screen
-            const expressScreen = new ExpressHomeScreen(this);
-            const screenHTML = await expressScreen.render();
-            
-            // Replace content
-            const appContainer = document.getElementById('pos-app');
-            appContainer.innerHTML = screenHTML;
-            
-            // Initialize express screen
-            await expressScreen.afterRender();
-            
-            console.log('Express theme loaded successfully');
-            
-        } catch (error) {
-            console.error('Failed to load express theme:', error);
-        }
-    }
 
     async loadEvolutionTheme() {
         try {
