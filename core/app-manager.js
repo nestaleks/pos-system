@@ -115,6 +115,31 @@ class POSApp {
     }
 
 
+    async loadVectTheme() {
+        try {
+            console.log('Loading vect theme...');
+            
+            // Dynamically import vect screen
+            const { default: VectHomeScreen } = await import('../screens/home/vect-home-screen.js');
+            
+            // Create and render vect screen
+            const vectScreen = new VectHomeScreen(this);
+            const screenHTML = await vectScreen.render();
+            
+            // Replace content
+            const appContainer = document.getElementById('pos-app');
+            appContainer.innerHTML = screenHTML;
+            
+            // Initialize vect screen
+            await vectScreen.afterRender();
+            
+            console.log('Vect theme loaded successfully');
+            
+        } catch (error) {
+            console.error('Failed to load vect theme:', error);
+        }
+    }
+
     async loadOblivionTheme() {
         try {
             console.log('Loading oblivion theme...');

@@ -26,6 +26,7 @@ class HomeScreen {
                     <button class="theme-btn active" data-theme="evolution">Evolution</button>
                     <button class="theme-btn" data-theme="restaurant">Restaurant</button>
                     <button class="theme-btn" data-theme="oblivion">Oblivion</button>
+                    <button class="theme-btn" data-theme="vect">Vect</button>
                 </div>
 
                 <!-- Header with promotion banner -->
@@ -465,6 +466,9 @@ Use touch interface for operation.`;
         } else if (theme === 'oblivion') {
             // Switch to oblivion theme
             this.app.loadOblivionTheme();
+        } else if (theme === 'vect') {
+            // Switch to vect theme
+            this.app.loadVectTheme();
         } else {
             // Keep current evolution theme
             const posLayout = document.querySelector('.pos-layout');

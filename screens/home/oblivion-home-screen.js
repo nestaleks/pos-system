@@ -20,6 +20,7 @@ class OblivionHomeScreen {
                     <button class="theme-btn" data-theme="evolution">Evolution</button>
                     <button class="theme-btn" data-theme="restaurant">Restaurant</button>
                     <button class="theme-btn active" data-theme="oblivion">Oblivion</button>
+                    <button class="theme-btn" data-theme="vect">Vect</button>
                 </div>
 
                 <!-- Header -->
@@ -422,6 +423,9 @@ class OblivionHomeScreen {
                 break;
             case 'restaurant':
                 this.app.loadRestaurantTheme();
+                break;
+            case 'vect':
+                this.app.loadVectTheme();
                 break;
         }
     }
